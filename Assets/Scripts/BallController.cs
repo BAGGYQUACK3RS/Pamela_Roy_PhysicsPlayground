@@ -4,7 +4,7 @@ public class BallController : MonoBehaviour
 {
     [SerializeField] Rigidbody2D ball;
 
-    void DeactivateBall()
+    public void DeactivateBall()
     {
         if (ball != null)
         {
@@ -24,5 +24,10 @@ public class BallController : MonoBehaviour
             ball.gameObject.SetActive(true);
             ball.bodyType = RigidbodyType2D.Dynamic;
         }
+    }
+
+    public void RepositionBall(Vector2 newPos)
+    {
+        ball.gameObject.transform.position = newPos;
     }
 }
