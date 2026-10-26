@@ -4,10 +4,9 @@ public class CircleBumper : MonoBehaviour
 {
     [SerializeField] SpriteRenderer rend;
     [SerializeField] GameObject outer;
-    float timeStamp;
     [SerializeField] float delayTime;
-
     [SerializeField] float forceValue;
+    private float timeStamp;
 
     void Update()
     {
@@ -16,8 +15,6 @@ public class CircleBumper : MonoBehaviour
             rend.color = new Color(0f/255f, 123f/255f, 32f/255f);
             outer.transform.localScale = new Vector3(2f, 2f, 0);
         }
-
-        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

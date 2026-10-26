@@ -357,8 +357,8 @@ HingeJoint2D:
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
-    m_MotorSpeed: 10000
-    m_MaximumMotorForce: 100000
+    m_MotorSpeed: 1000
+    m_MaximumMotorForce: 10000
   m_UseLimits: 1
   m_AngleLimits:
     m_LowerAngle: 90
@@ -378,7 +378,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1000
+  m_GravityScale: 100
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -423,9 +423,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerControl
   leftFlipper: {fileID: 1189703382}
   rightFlipper: {fileID: 56889622}
-  isLaunched: 0
+  ballControl: {fileID: 0}
   flippersActive: 0
-  deathZone: {fileID: 0}
 --- !u!1 &68544424
 GameObject:
   m_ObjectHideFlags: 0
@@ -1829,9 +1828,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerControl
   leftFlipper: {fileID: 1189703382}
   rightFlipper: {fileID: 56889622}
-  isLaunched: 0
+  ballControl: {fileID: 1267046511}
   flippersActive: 0
-  deathZone: {fileID: 1511250707}
 --- !u!4 &927911129
 Transform:
   m_ObjectHideFlags: 0
@@ -2524,8 +2522,8 @@ HingeJoint2D:
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
-    m_MotorSpeed: -10000
-    m_MaximumMotorForce: 100000
+    m_MotorSpeed: -1000
+    m_MaximumMotorForce: 10000
   m_UseLimits: 1
   m_AngleLimits:
     m_LowerAngle: -90
@@ -2545,7 +2543,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1000
+  m_GravityScale: 100
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -2712,6 +2710,7 @@ GameObject:
   - component: {fileID: 1267046509}
   - component: {fileID: 1267046508}
   - component: {fileID: 1267046510}
+  - component: {fileID: 1267046511}
   m_Layer: 0
   m_Name: ball
   m_TagString: Untagged
@@ -2798,6 +2797,19 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.4
+--- !u!114 &1267046511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1267046507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee5ca37dbb96c84f9e8884fcc017a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallController
+  ball: {fileID: 1267046508}
 --- !u!1 &1293820325
 GameObject:
   m_ObjectHideFlags: 0
@@ -3735,6 +3747,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DeathZone
   ballSpawn: {fileID: 22921349}
   playerInput: {fileID: 927911128}
+  ballControl: {fileID: 1267046511}
   spawnDelay: 2
 --- !u!1 &1619042578
 GameObject:

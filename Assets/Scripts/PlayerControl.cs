@@ -5,15 +5,15 @@ using UnityEngine.InputSystem;
 public class PlayerControl : MonoBehaviour
 {
     [SerializeField] HingeJoint2D leftFlipper, rightFlipper;
-    public bool isLaunched, flippersActive;
     [SerializeField] BallController ballControl;
+    public bool flippersActive;
 
     void Update()
     {
         if (Keyboard.current.sKey.isPressed && !flippersActive)
         {
             flippersActive = true;
-            ballControl.ReactivateBall();
+            ballControl.Activate();
         }
 
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
