@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class DeathZone : MonoBehaviour
 {
-    [SerializeField] GameObject ballSpawn, playerInput;
-    [SerializeField] float spawnDelay = 2.0f;
+    [SerializeField] GameObject ballSpawn;
+    [SerializeField] PlayerControl playerInput;
+    public float spawnDelay = 2.0f;
     Rigidbody2D ball;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -11,6 +12,7 @@ public class DeathZone : MonoBehaviour
         ball = collision.gameObject.GetComponentInParent<Rigidbody2D>();
 
         DeactivateBall();
+        playerInput.flippersActive = false;
     }
 
     void DeactivateBall()
@@ -18,19 +20,23 @@ public class DeathZone : MonoBehaviour
         if (ball != null)
         {
             // Stop the ball's velocity before repositioning it.
-            ball.linearVelocity = Vector3.zero;
+            ball.linearVelocity = Vector2.zero;
             ball.angularVelocity = 0;
             ball.transform.rotation = Quaternion.identity;
+            ball.bodyType = RigidbodyType2D.Kinematic;
             ball.gameObject.transform.position = ballSpawn.transform.position;
 
             ball.gameObject.SetActive(false);
-            Invoke("ReactivateBall", spawnDelay);
         }
     }
 
-    void ReactivateBall()
-    {
-        ball.gameObject.SetActive(true);
-
+    public void ReactivateBall()
+    {   
+        float timeStamp = Time.time;
+        if (Time.time > timeStamp + spawnDelay)
+        {
+            ball.gameObject.SetActive(true);
+            ball.bodyType = RigidbodyType2D.Dynamic;
+        }
     }
 }
