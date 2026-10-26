@@ -1,22 +1,33 @@
+using System;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class DropTarget : MonoBehaviour
 {
+    [SerializeField] CircleCollider2D circleCollider;
+    [SerializeField] GroupTrigger groupTrigger;
+    private float timeStamp;
     private SpriteRenderer[] renderers;
-    float timeStamp;
-    [SerializeField] float delayTime;
-    [SerializeField] private CircleCollider2D circleCollider;
 
     void Start()
     {
         renderers = GetComponentsInChildren<SpriteRenderer>();
     }
 
-    void Update()
+    void TurnOff()
     {
-        if (renderers.Length > 0 && Time.time > timeStamp + delayTime)
+        circleCollider.enabled = false;
+        foreach (SpriteRenderer rend in renderers)
         {
-            circleCollider.enabled = true;
+            Color c = rend.color;
+            c.a = 0.5f;
+            rend.color = c;
+        }
+    }
+
+    void TurnOn()
+    {
+        circleCollider.enabled = true;
             if (renderers[0].color.a == 0.5f)
             {
                 foreach (SpriteRenderer rend in renderers)
@@ -26,19 +37,22 @@ public class DropTarget : MonoBehaviour
                     rend.color = c;
                 }
             }
-        }
+    }
 
+    void Update()
+    {
+        if (groupTrigger.areActive == true)
+        {
+            TurnOn();
+        } else if(groupTrigger.areActive == false)
+        {
+            TurnOff();
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         timeStamp = Time.time;
-        circleCollider.enabled = false;
-        foreach (SpriteRenderer rend in renderers)
-        {
-            Color c = rend.color;
-            c.a = 0.5f;
-            rend.color = c;
-        }
+        groupTrigger.DeactivateGroup(timeStamp);
     }
 }
